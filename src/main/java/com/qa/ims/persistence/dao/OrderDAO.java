@@ -103,6 +103,19 @@ public class OrderDAO implements Dao<Order>{
         return 0;
     }
 
+    public int delete(long id, long id2) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM orders_items WHERE order_id=? and item_id = ?");) {
+            statement.setLong(1, id);
+            statement.setLong(2, id2);
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return 0;
+    }
+
     @Override
     public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
         long order_id = resultSet.getLong("order_id");

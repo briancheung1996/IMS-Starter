@@ -1,9 +1,8 @@
 package com.qa.ims.controller;
 
-import com.qa.ims.persistence.domain.Customer;
-import com.qa.ims.utils.Utils;
-import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.persistence.dao.OrderDAO;
+import com.qa.ims.persistence.domain.Order;
+import com.qa.ims.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -79,8 +78,14 @@ public class OrderController implements CrudController<Order>{
     @Override
     public int delete() {
         LOGGER.info("Please enter the id of the order you would like to delete");
-        Long id = utils.getLong();
-        return orderDAO.delete(id);
+        LOGGER.info("OR enter the id of the order and the item inside the order that you would like to delete");
+        Long[] ids = utils.getLongs();
+        if (ids.length == 2) {
+            return orderDAO.delete(ids[0], ids[1]);
+        } else {
+            Long id = ids[0];
+            return orderDAO.delete(id);
+        }
     }
 
 }
