@@ -68,13 +68,13 @@ public class OrderController implements CrudController<Order>{
         UpdateAction.printActions();
         UpdateAction updateAction = UpdateAction.getAction(utils);
         switch (updateAction) {
-            case CHANGECUSTOMER:
+            case CHANGE_CUSTOMER:
                 this.updateCustomer();
                 break;
-            case ADDITEM:
+            case ADD_ITEM:
                 this.addItem();
                 break;
-            case REMIOVEITEM:
+            case REMIOVE_ITEM:
                 this.removeItem();
                 break;
             default:
@@ -107,9 +107,9 @@ public class OrderController implements CrudController<Order>{
 
     public enum UpdateAction {
 
-        CHANGECUSTOMER("To change the order's Customer_ID"),
-        ADDITEM("To add an item to the order"),
-        REMIOVEITEM("To remove an item from the order");
+        CHANGE_CUSTOMER("To change the order's Customer_ID"),
+        ADD_ITEM("To add an item to the order"),
+        REMIOVE_ITEM("To remove an item from the order");
     
         private String description;
     
