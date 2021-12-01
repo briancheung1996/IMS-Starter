@@ -1,7 +1,6 @@
-Coverage: 34%
-# Project Title
+# E-Commerce management system
 
-One Paragraph of project description goes here
+This tool can be used to maintain the data for an ecommerce website.
 
 ## Getting Started
 
@@ -121,13 +120,3 @@ ORDER: Purchases of items
 STOP: To close the application
 stop
 ```
-
-## Built With
-
-* [Maven](https://maven.apache.org/) - Dependency Management
-
-## License
-
-This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md) file for details 
-
-*For help in [Choosing a license](https://choosealicense.com/)*
