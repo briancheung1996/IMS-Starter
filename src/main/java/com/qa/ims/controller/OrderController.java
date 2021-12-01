@@ -1,5 +1,6 @@
 package com.qa.ims.controller;
 
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.utils.Utils;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.persistence.dao.OrderDAO;
@@ -26,6 +27,20 @@ public class OrderController implements CrudController<Order>{
             LOGGER.info(order);
         }
         return orders;
+    }
+
+    @Override
+    public Order read() {
+        LOGGER.info("Please enter the id of the order you would like to read");
+        Long id = utils.getLong();
+        Order order = orderDAO.read(id);
+        LOGGER.info(order);
+        return order;
+    }
+
+    @Override
+    public Order readByName() {
+        return null;
     }
 
     /**
