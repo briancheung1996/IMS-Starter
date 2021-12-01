@@ -64,11 +64,24 @@ public class OrderController implements CrudController<Order>{
     public Order update() {
         LOGGER.info("Please enter the id of the order you would like to update");
         Long order_id = utils.getLong();
-        LOGGER.info("Please enter a customer id");
-        long customer_id = utils.getLong();
-        Order order = orderDAO.update(new Order(order_id, customer_id));
+        LOGGER.info(() -> "What would you like to do with order #" + order_id.toString().toLowerCase() + ":");
+        UpdateAction.printActions();
+        UpdateAction updateAction = UpdateAction.getAction(utils);
+        switch (updateAction) {
+            case CHANGECUSTOMER:
+                this.updateCustomer();
+                break;
+            case ADDITEM:
+                this.addItem();
+                break;
+            case REMIOVEITEM:
+                this.removeItem();
+                break;
+            default:
+                break;
+            }
         LOGGER.info("Order Updated");
-        return order;
+        return null;
     }
 
     /**
@@ -82,5 +95,43 @@ public class OrderController implements CrudController<Order>{
         Long id = utils.getLong();
         return orderDAO.delete(id);
     }
+
+    public enum UpdateAction {
+
+        CHANGECUSTOMER("To change the order's Customer_ID"),
+        ADDITEM("To add an item to the order"),
+        REMIOVEITEM("To remove an item from the order");
+    
+        private String description;
+    
+        private UpdateAction(String description) {
+            this.description = description;
+        }
+    
+        public String getDescription() {
+            return this.name() + ": " + this.description;
+        }
+    
+        public static void printActions() {
+            for (UpdateAction updateAction : UpdateAction.values()) {
+                LOGGER.info(updateAction.getDescription());
+            }
+        }
+    
+        public static UpdateAction getAction(Utils utils) {
+            UpdateAction updateAction;
+            while (true) {
+                try {
+                    updateAction = UpdateAction.valueOf(utils.getString().toUpperCase());
+                    break;
+                } catch (IllegalArgumentException e) {
+                    LOGGER.error("Invalid selection please try again");
+                }
+            }
+            return updateAction;
+        }
+    
+    }
+    
 
 }
